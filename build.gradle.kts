@@ -1,10 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.7.0"
+    val kotlinVersion = "1.5.21"
+    id("org.springframework.boot") version "2.5.4"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.6.21"
-    kotlin("plugin.spring") version "1.6.21"
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
+    kotlin("plugin.allopen") version kotlinVersion
+    id("org.jetbrains.kotlin.plugin.noarg") version "1.4.31"
+    kotlin("kapt") version "1.3.61"
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
 }
 
@@ -26,11 +30,12 @@ buildscript {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlin:kotlin-noarg")
     implementation("com.amazonaws:aws-java-sdk-dynamodb:1.12.233")
     implementation("com.github.derjust:spring-data-dynamodb:5.1.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
