@@ -36,8 +36,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-noarg")
-    implementation("com.amazonaws:aws-java-sdk-dynamodb:1.12.233")
-    implementation("com.github.derjust:spring-data-dynamodb:5.1.0")
+
+    implementation("com.amazonaws:aws-java-sdk-dynamodb:1.12.258")
+    implementation("io.github.boostchicken:spring-data-dynamodb:5.2.5")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation(kotlin("test-junit"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
