@@ -21,4 +21,12 @@ class PostServiceImpl(
         )
         return PostCreateResponse.from(user)
     }
+
+    override fun findByUserId(userId: String): List<Post> {
+        return postRepository.findByUserIdOrderByCreatedAtAsc(userId)
+    }
+
+    override fun findByTitle(userId: String): List<Post> {
+        return postRepository.findByTitleOrderByCreatedAtDesc(userId)
+    }
 }

@@ -7,11 +7,15 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverter
 import org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.util.*
 
 @Configuration
 @EnableDynamoDBRepositories(basePackages = ["com.example.post.domain"])
@@ -22,6 +26,17 @@ class DynamoDBConfig(
     @Value("\${amazon.aws.region}") private val region: String
 ) {
 
+    companion object {
+        class LocalDateTimeConverter : DynamoDBTypeConverter<Date, LocalDateTime> {
+            override fun convert(source: LocalDateTime): Date {
+                return Date.from(source.toInstant(ZoneOffset.UTC))
+            }
+
+            override fun unconvert(source: Date): LocalDateTime {
+                return source.toInstant().atZone(TimeZone.getDefault().toZoneId()).toLocalDateTime()
+            }
+        }
+    }
     @Primary
     @Bean
     fun dynamoDBMapper(amazonDynamoDB: AmazonDynamoDB): DynamoDBMapper {
