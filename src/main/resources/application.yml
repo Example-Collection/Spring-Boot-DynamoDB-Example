@@ -4,3 +4,4 @@ amazon:
   aws:
     accessKey: 123
     secretKey: 123
+    region: ap-northeast-2
